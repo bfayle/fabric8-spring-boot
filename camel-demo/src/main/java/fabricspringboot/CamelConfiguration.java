@@ -18,22 +18,21 @@ package fabricspringboot;
 import org.apache.camel.CamelContext;
 import org.apache.camel.builder.RouteBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.orm.jpa.EntityScan;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
+
+import fabricspringboot.routes.CensusRouteBuilder;
 
 @Configuration
+//@EnableJpaRepositories
+//@EntityScan
 public class CamelConfiguration {
 
     @Bean
     RouteBuilder routeBuilder() {
-        return new RouteBuilder() {
-            @Override
-            public void configure() throws Exception {
-                from("timer://foo?fixedRate=true&period=5000").
-                        setBody().constant("<hello>world!</hello>").
-                        log(">>> ${body}");
-            }
-        };
+        return new CensusRouteBuilder();
     }
 
     // Collaborators fixtures
